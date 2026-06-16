@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapita Prop Lab</title>
+</head>
+<body style="font-family: Arial; text-align:center;">
+
+<h1>🏆 Chapita Prop Lab</h1>
+
+<input id="player" placeholder="Jugador" />
+<input id="line" placeholder="Línea (ej 25.5)" />
+
+<button onclick="getProp()">Analizar</button>
+
+<pre id="result"></pre>
+
+<script>
+async function getProp(){
+
+  const player = document.getElementById("player").value;
+  const line = document.getElementById("line").value;
+
+  const res = await fetch("/api/prop", {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ player, line })
+  });
+
+  const data = await res.json();
+
+  document.getElementById("result").innerText =
+    JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
